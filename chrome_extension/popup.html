@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <base href="/">
+
+  <meta charset="UTF-8">
+  <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+  <meta name="description" content="A new Flutter project.">
+
+  <!-- iOS meta tags & icons -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="TimeUntil">
+  <link rel="apple-touch-icon" href="icons/Icon-192.png">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="favicon.png"/>
+
+  <title>TimeUntil</title>
+  <!-- No <link rel="manifest">: see index.html's comment - this folder's
+       manifest.json is the Chrome extension manifest, not a PWA one. -->
+
+  <!-- The one thing this file exists for, separate from index.html: a
+       Chrome extension popup (action.default_popup) doesn't auto-size to
+       its content like a normal page does - without an explicit size,
+       Chrome renders it at a tiny default (a few dozen px) and Flutter's
+       canvas ends up matching that. index.html itself gets loaded for
+       the new-tab override and side panel too, both of which SHOULD fill
+       whatever large area they're given, so the fixed size below lives
+       only in this popup-specific copy. -->
+  <style>
+    html, body {
+      width: 420px;
+      height: 600px;
+      margin: 0;
+      overflow: hidden;
+    }
+  </style>
+</head>
+<body>
+  <script src="flutter_bootstrap.js" async></script>
+</body>
+</html>

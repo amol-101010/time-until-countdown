@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>New Tab</title>
+  <!-- Tiny launcher for the chrome_url_overrides.newtab override. Chrome
+       can't toggle an override at runtime, so this page decides on each
+       new tab: show the app (index.html), or hand the tab straight back to
+       Chrome's own new tab page when the user turned the override off in
+       Settings. See newtab.js. Kept inline-script-free (extension CSP). -->
+  <style>
+    html, body { margin: 0; background: #ffffff; }
+    @media (prefers-color-scheme: dark) {
+      html, body { background: #121212; }
+    }
+  </style>
+</head>
+<body>
+  <script src="newtab.js"></script>
+</body>
+</html>
