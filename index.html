@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TimeUntil – Free Countdown Timer App for Chrome &amp; Windows</title>
+<meta name="description" content="Count down to any date or event. TimeUntil shows a live countdown badge in Chrome and a transparent desktop widget on Windows. Free download.">
+<meta name="keywords" content="countdown timer, days until, event countdown, chrome extension countdown, windows countdown widget, desktop widget, TimeUntil">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#4f46e5">
+<meta property="og:type" content="website">
+<meta property="og:title" content="TimeUntil – Free Countdown Timer App for Chrome &amp; Windows">
+<meta property="og:description" content="Count down to any date or event. TimeUntil shows a live countdown badge in Chrome and a transparent desktop widget on Windows. Free download.">
+<meta property="og:image" content="screenshots/1_home_cards_view.png">
+<meta property="og:site_name" content="TimeUntil">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="TimeUntil – Free Countdown Timer App for Chrome &amp; Windows">
+<meta name="twitter:description" content="Count down to any date or event. TimeUntil shows a live countdown badge in Chrome and a transparent desktop widget on Windows. Free download.">
+<meta name="twitter:image" content="screenshots/1_home_cards_view.png">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"SoftwareApplication","name":"TimeUntil","applicationCategory":"UtilitiesApplication","operatingSystem":"Windows, Chrome","description":"Count down to any date or event. TimeUntil shows a live countdown badge in Chrome and a transparent desktop widget on Windows. Free download.","softwareVersion":"1.0.2","image":"screenshots/1_home_cards_view.png","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"downloadUrl":["https://chromewebstore.google.com/detail/timeuntil/mafaappcfkngejifejpinmcgnkcoiokb?authuser=0&hl=en","https://apps.microsoft.com/detail/9njxvr64xcqc?cid=DevShareMCLPCS&hl=en-US&gl=IN/"]}
+</script>
+<link rel="icon" href="icon.png">
+<style>
+:root{--bg:#f7f8fa;--card:#fff;--text:#14171c;--muted:#5d6675;--accent:#4f46e5;--border:#e3e6ec;--ok:#16a34a}
+@media (prefers-color-scheme:dark){:root{--bg:#0e1116;--card:#171b22;--text:#eef0f4;--muted:#99a1b0;--accent:#818cf8;--border:#262c37;--ok:#4ade80}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:16px/1.55 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+main{max-width:760px;margin:0 auto;padding:48px 16px}
+header{text-align:center;margin-bottom:36px}
+header img{width:72px;height:72px;border-radius:16px}
+h1{margin:12px 0 4px;font-size:2rem}
+header p{color:var(--muted);margin:0 auto;max-width:520px}
+.status{display:inline-flex;align-items:center;gap:8px;margin-top:16px;padding:6px 14px;border:1px solid var(--border);border-radius:999px;background:var(--card);font-size:.9rem}
+.dot{width:10px;height:10px;border-radius:50%;background:var(--ok);box-shadow:0 0 0 4px color-mix(in srgb,var(--ok) 25%,transparent)}
+h1{line-height:1.2}
+.cta{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:22px}
+.btn.big{padding:13px 24px;font-size:1rem;box-shadow:0 4px 14px color-mix(in srgb,var(--accent) 40%,transparent)}
+.btn.alt{background:var(--text);color:var(--bg);box-shadow:none}
+.sticky{display:none}
+@media (max-width:600px){.sticky{display:flex;gap:8px;position:fixed;left:0;right:0;bottom:0;padding:10px 16px;background:var(--card);border-top:1px solid var(--border);z-index:9}.sticky .btn{flex:1;text-align:center;padding:11px 8px}main{padding-bottom:84px}}
+h2{font-size:1.1rem;margin:32px 0 12px}
+.grid{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+.card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:18px}
+.card h3{margin:0 0 4px;font-size:1rem}
+.card p{margin:0 0 14px;color:var(--muted);font-size:.9rem}
+.row{display:flex;justify-content:space-between;align-items:center;font-size:.85rem;color:var(--muted);margin-bottom:14px}
+.badge{color:var(--ok);font-weight:600}
+.btn{display:inline-block;padding:9px 16px;border-radius:10px;background:var(--accent);color:#fff;text-decoration:none;font-weight:600;font-size:.9rem}
+.btn:hover{opacity:.9}
+.soon .badge{color:#d97706}
+.soon{opacity:.95}
+.btn.off{background:var(--border);color:var(--muted);cursor:not-allowed;pointer-events:none}
+.goal{margin:0 0 14px;font-size:.8rem;color:var(--muted)}
+.bar{height:6px;border-radius:99px;background:var(--border);overflow:hidden;margin:4px 0 10px}
+.slider{position:relative;border:1px solid var(--border);border-radius:14px;overflow:hidden;background:var(--card)}
+.slides{display:flex;transition:transform .45s ease}
+.slides figure{margin:0;min-width:100%}
+.slides img{display:block;width:100%;height:auto}
+.slides figcaption{padding:10px 14px;font-size:.85rem;color:var(--muted);text-align:center}
+.nav{position:absolute;top:calc(50% - 30px);transform:translateY(-50%);width:40px;height:40px;border:0;border-radius:50%;background:rgba(0,0,0,.55);color:#fff;font-size:1.3rem;cursor:pointer}
+.nav:hover{background:rgba(0,0,0,.75)}
+.prev{left:10px}.next{right:10px}
+.dots{display:flex;justify-content:center;gap:8px;padding:0 0 12px}
+.dots button{width:9px;height:9px;padding:0;border:0;border-radius:50%;background:var(--border);cursor:pointer}
+.dots button.on{background:var(--accent)}
+.bar>i{display:block;height:100%;background:var(--accent);width:0}
+ul{margin:0;padding-left:20px;color:var(--muted)}
+footer{margin-top:40px;text-align:center;color:var(--muted);font-size:.85rem}
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <img src="icon.png" alt="TimeUntil icon">
+    <h1>TimeUntil – Countdown Timer for Chrome &amp; Windows</h1>
+    <p>Countdown timer to any date or event, with a live toolbar badge and day, month, year and lifetime progress in dots.</p>
+    <div class="cta">
+      <a class="btn big" href="https://chromewebstore.google.com/detail/timeuntil/mafaappcfkngejifejpinmcgnkcoiokb?authuser=0&hl=en" target="_blank" rel="noopener">Add to Chrome – Free</a>
+      <a class="btn big alt" href="https://apps.microsoft.com/detail/9njxvr64xcqc?cid=DevShareMCLPCS&hl=en-US&gl=IN/" target="_blank" rel="noopener">Get it on Microsoft Store</a>
+    </div>
+    <div class="status"><span class="dot"></span> All platforms live</div>
+  </header>
+
+  <h2>Platform status</h2>
+  <div class="grid">
+    <section class="card">
+      <h3>Chrome Extension</h3>
+      <p>Toolbar badge, popup and side panel.</p>
+      <div class="row"><span>Version 1.0.2</span><span class="badge">● Available</span></div>
+      <a class="btn" href="https://chromewebstore.google.com/detail/timeuntil/mafaappcfkngejifejpinmcgnkcoiokb?authuser=0&hl=en" target="_blank" rel="noopener">Get on Chrome Web Store</a>
+    </section>
+    <section class="card">
+      <h3>Windows App</h3>
+      <p>Native desktop app for Windows, plus a small transparent desktop widget that keeps your countdown on screen.</p>
+      <div class="row"><span>Microsoft Store</span><span class="badge">● Available</span></div>
+      <a class="btn" href="https://apps.microsoft.com/detail/9njxvr64xcqc?cid=DevShareMCLPCS&hl=en-US&gl=IN/" target="_blank" rel="noopener">Get on Microsoft Store</a>
+    </section>
+  </div>
+
+  <h2>Coming soon</h2>
+  <p class="goal" style="margin-top:-4px">Android and iOS unlock once we reach <b>100 Chrome extension</b> and <b>25 Windows</b> downloads.</p>
+  <div class="grid">
+    <section class="card soon">
+      <h3>Android</h3>
+      <p>Mobile app for Android.</p>
+      <div class="row"><span>Google Play</span><span class="badge">● Coming soon</span></div>
+      <a class="btn off">Coming soon</a>
+    </section>
+    <section class="card soon">
+      <h3>iOS</h3>
+      <p>Mobile app for iPhone and iPad.</p>
+      <div class="row"><span>App Store</span><span class="badge">● Coming soon</span></div>
+      <a class="btn off">Coming soon</a>
+    </section>
+  </div>
+  <div class="card" style="margin-top:12px">
+    <div class="goal" style="margin:0">Chrome extension downloads: <b id="cN">0</b> / 100</div>
+    <div class="bar"><i id="cB"></i></div>
+    <div class="goal" style="margin:0">Windows downloads: <b id="wN">0</b> / 25</div>
+    <div class="bar" style="margin-bottom:0"><i id="wB"></i></div>
+  </div>
+
+  <h2>Screenshots</h2>
+  <div class="slider" id="slider">
+    <div class="slides" id="slides">
+      <figure><img src="screenshots/1_home_cards_view.png" alt="Home – cards view"><figcaption>Home – cards view</figcaption></figure>
+      <figure><img src="screenshots/2_list_view_countdown.png" alt="List view countdown" loading="lazy"><figcaption>List view countdown</figcaption></figure>
+      <figure><img src="screenshots/3_event_detail_grid.png" alt="Event detail grid" loading="lazy"><figcaption>Event detail grid</figcaption></figure>
+      <figure><img src="screenshots/4_growth_rings_visual.png" alt="Growth rings" loading="lazy"><figcaption>Growth rings</figcaption></figure>
+      <figure><img src="screenshots/5_settings_visual_styles.png" alt="Visual styles in settings" loading="lazy"><figcaption>Visual styles in settings</figcaption></figure>
+    </div>
+    <button class="nav prev" aria-label="Previous">&#8249;</button>
+    <button class="nav next" aria-label="Next">&#8250;</button>
+    <div class="dots" id="dots"></div>
+  </div>
+
+  <h2>Features</h2>
+  <div class="card">
+    <ul>
+      <li>Count down to any date or event</li>
+      <li>Live badge on the browser toolbar</li>
+      <li>Day, month, year and lifetime progress dots</li>
+      <li>Windows: small, transparent always-on-screen widget</li>
+      <li>Works offline with local storage</li>
+    </ul>
+  </div>
+
+  <footer>© TimeUntil</footer>
+</main>
+<nav class="sticky" aria-label="Download">
+  <a class="btn" href="https://chromewebstore.google.com/detail/timeuntil/mafaappcfkngejifejpinmcgnkcoiokb?authuser=0&hl=en" target="_blank" rel="noopener">Chrome</a>
+  <a class="btn" href="https://apps.microsoft.com/detail/9njxvr64xcqc?cid=DevShareMCLPCS&hl=en-US&gl=IN/" target="_blank" rel="noopener">Windows</a>
+</nav>
+<script>
+// Update these numbers from the store dashboards.
+const DOWNLOADS={chrome:0,windows:0};
+const set=(n,b,v,t)=>{document.getElementById(n).textContent=v;document.getElementById(b).style.width=Math.min(100,v/t*100)+'%'};
+set('cN','cB',DOWNLOADS.chrome,100);set('wN','wB',DOWNLOADS.windows,25);
+
+(function(){
+  const sl=document.getElementById('slides'),n=sl.children.length,dots=document.getElementById('dots');
+  let i=0,t;
+  for(let k=0;k<n;k++){const b=document.createElement('button');b.setAttribute('aria-label','Slide '+(k+1));b.onclick=()=>go(k,true);dots.appendChild(b)}
+  function go(k,user){i=(k+n)%n;sl.style.transform='translateX(-'+i*100+'%)';[...dots.children].forEach((d,j)=>d.classList.toggle('on',j===i));if(user)reset()}
+  function reset(){clearInterval(t);t=setInterval(()=>go(i+1),4500)}
+  document.querySelector('.prev').onclick=()=>go(i-1,true);
+  document.querySelector('.next').onclick=()=>go(i+1,true);
+  const box=document.getElementById('slider');box.onmouseenter=()=>clearInterval(t);box.onmouseleave=reset;
+  let x0;box.addEventListener('touchstart',e=>x0=e.touches[0].clientX,{passive:true});
+  box.addEventListener('touchend',e=>{const d=e.changedTouches[0].clientX-x0;if(Math.abs(d)>40)go(i+(d<0?1:-1),true)});
+  go(0);reset();
+})();
+</script>
+</body>
+</html>
